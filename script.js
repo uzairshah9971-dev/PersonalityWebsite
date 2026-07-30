@@ -1,4 +1,3 @@
-```javascript
 function showPersonality() {
 
     let name = document.getElementById("name").value.trim();
@@ -18,9 +17,8 @@ function showPersonality() {
     }
 
 
-
     const personalities = {
-    1: "You are like Donkey 🫏",
+          1: "You are like Donkey 🫏",
     2: "You are like Monkey 🐵",
     3: "You are like Sleepy Boy 😴",
     4: "You are like Lazy King 👑",
@@ -119,45 +117,31 @@ function showPersonality() {
     97: "You are like Unstoppable 🔥",
     98: "You are like GOAT 🐐",
     99: "You are like Legendary Emperor 👑"
-};
+    };
 
 
-    let message = `
-    <h2>🎉 Hello ${name}</h2>
-    <p>Number: ${number}</p>
-    <h3>${personalities[number] || "Mystery Personality 🔮"}</h3>
-    <button onclick="shareResult()">
-    📤 Share Result
-    </button>
+    result.innerHTML = `
+    <div class="result-card">
+
+        <h2>🎉 Hello ${name}</h2>
+
+        <p>Your number: ${number}</p>
+
+        <h3>
+        ${personalities[number] || "Mystery Personality 🔮"}
+        </h3>
+
+        <button onclick="shareResult()">
+        📤 Share Result
+        </button>
+
+    </div>
     `;
 
 
+    result.classList.add("show-result");
 
-    result.innerHTML = "";
-
-
-    let i=0;
-
-
-    let typing = setInterval(()=>{
-
-        result.innerHTML = message.substring(0,i);
-
-        i++;
-
-
-        if(i > message.length){
-
-            clearInterval(typing);
-
-            confetti();
-
-        }
-
-
-    },20);
-
-
+    confetti();
 
 }
 
@@ -165,13 +149,9 @@ function showPersonality() {
 
 function randomPersonality(){
 
-
-    let number =
-    Math.floor(Math.random()*99)+1;
-
+    let number = Math.floor(Math.random()*99)+1;
 
     document.getElementById("number").value = number;
-
 
     showPersonality();
 
@@ -179,19 +159,14 @@ function randomPersonality(){
 
 
 
-
 function clearFields(){
-
 
     document.getElementById("name").value="";
 
-
     document.getElementById("number").value="";
-
 
     document.getElementById("result").innerHTML =
     "Your result will appear here 😊";
-
 
 }
 
@@ -199,26 +174,33 @@ function clearFields(){
 
 function shareResult(){
 
-    let text =
-    document.getElementById("result").innerText;
+    let text = document.getElementById("result").innerText;
 
 
-    navigator.share({
+    if(navigator.share){
 
-        title:"My Personality Result",
+        navigator.share({
 
-        text:text
+            title:"My Personality Result",
 
-    });
+            text:text
+
+        });
+
+    }
+    else{
+
+        alert(text);
+
+    }
 
 }
 
 
 
-
 function confetti(){
 
-    for(let i=0;i<40;i++){
+    for(let i=0;i<30;i++){
 
         let emoji=document.createElement("div");
 
@@ -238,7 +220,6 @@ function confetti(){
         document.body.appendChild(emoji);
 
 
-
         setTimeout(()=>{
 
             emoji.remove();
@@ -248,4 +229,3 @@ function confetti(){
     }
 
 }
-```
